@@ -1,11 +1,17 @@
+var fs = require('fs');
+
 var Hapi = require('hapi');
 var Good = require('good');
+var React = require('react');
 
-var render = require('markdown-parser').render;
+var app = require('markdown-parser').app;
 
 var server = new Hapi.Server(3000);
+var text = fs.readFileSync('README.md', 'utf-8');
 
-var html = render('README.md');
+var readmeApp = app(text);
+var html = React.renderComponentToString(readmeApp);
+html = '<html><head><title>test</title></head><body>' + html + '<script type="text/javascript" src="bundle.js" charset="utf-8"></script></body></html>';
 console.log(html);
 
 server.route({
@@ -14,6 +20,23 @@ server.route({
     handler: function (request, reply) {
         reply(html);
     }
+});
+
+server.route({
+    method: 'GET',
+    path: '/bundle.js',
+    handler: function (request, reply) {
+        reply.file('bundle.js');
+    }
+});
+
+
+server.route({
+  method: 'GET',
+  path: '/markdown',
+  handler: function (request, reply) {
+    reply.file('README.md');
+  }
 });
 
 server.pack.register(Good, function (err) {

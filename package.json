@@ -10,6 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "hapi": "^6.5.1",
-    "good": "^2.2.3"
+    "good": "^2.2.3",
+    "react": "^0.11.1",
+    "browser-request": "^0.3.2",
+    "markdown-parser": "git://github.com/tcoopman/markdown-react"
+  },
+  "devDependencies": {
+    "webpack": "^1.3.3-beta2"
   }
 }
