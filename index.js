@@ -4,7 +4,7 @@ var Hapi = require('hapi');
 var Good = require('good');
 var React = require('react');
 
-var app = require('markdown-parser').app;
+var app = require('markdown-react').buildReactApp;
 
 var server = new Hapi.Server(3000);
 var text = fs.readFileSync('README.md', 'utf-8');
